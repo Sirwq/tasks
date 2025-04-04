@@ -2,13 +2,13 @@ from datetime import datetime
 
 # id, title, created date, finish date
 class Task:
-    def __init__(self, title, deadline):
+    def __init__(self, title, deadline: datetime):
         self.title = title
         self.deadline = deadline
         self.createdDate = datetime.now()
 
     def __str__(self):
-        return f"{self.title} | created: {self.createdDate.strftime("%Y-%m-%d %H:%M:%S")} | finish untill: {self.deadline}"
+        return f"{self.title} | created: {self.createdDate} | finish untill: {self.deadline}"
     
     @property
     def title(self):
@@ -32,12 +32,3 @@ class Task:
             self._deadline = datetime.strptime(deadline, "%Y-%m-%d %H:%M:%S")
         except ValueError as e:
             raise ValueError(f"Invalid deadline format: {e}")
-
-def getCurrentTime():
-    return datetime.now()
-
-def addTask(self, title, finishDate):
-    pass
-
-def renameTask(self):
-    pass
