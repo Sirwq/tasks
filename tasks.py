@@ -2,7 +2,8 @@ from datetime import datetime
 
 # id, title, created date, finish date
 class Task:
-    def __init__(self, title, deadline):
+    def __init__(self, id, title, deadline):
+        self.id = None
         self.title = title
         self.deadline = deadline
         self.createdDate = datetime.now()
@@ -33,11 +34,8 @@ class Task:
         except ValueError as e:
             raise ValueError(f"Invalid deadline format: {e}")
 
-def getCurrentTime():
-    return datetime.now()
+    def addTask(self, title, finishDate):
+        pass
 
-def addTask(self, title, finishDate):
-    pass
-
-def renameTask(self):
-    pass
+    def renameTask(self):
+        pass
