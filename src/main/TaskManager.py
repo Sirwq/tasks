@@ -1,6 +1,5 @@
 import sqlite3
-from task import Task
-
+from Task import Task
 
 class TaskManager:
     def __init__(self, db_path="../tasks.db"):
@@ -24,7 +23,8 @@ class TaskManager:
             """)
             db.commit()
 
-    def create_task(self, title: str, deadline: str):
+    @staticmethod
+    def create_task(title: str, deadline: str):
         task = Task(title, deadline)
         return task
 
@@ -60,13 +60,13 @@ class TaskManager:
     def mark_completed(self, task_id):
         with self._get_connection() as db:
             cursor = db.cursor()
-            cursor.execute("UPDATE tasks SET completed = 1 WHERE id = ?", (task_id))
+            cursor.execute("UPDATE tasks SET completed = 1 WHERE id = ?", task_id)
             db.commit()
             print(f"Task {task_id} marked as completed.")
 
     def delete_task(self, task_id):
         with self._get_connection() as db:
             cursor = db.cursor()
-            cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id))
+            cursor.execute("DELETE FROM tasks WHERE id = ?", task_id)
             db.commit()
             print(f"Task {task_id} deleted.")

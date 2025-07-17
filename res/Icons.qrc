@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="Main">
+    <file>good-morning.png</file>
+  </qresource>
+  <qresource prefix="Buttons">
+    <file>add-button.png</file>
+    <file>remove.png</file>
+  </qresource>
+</RCC>

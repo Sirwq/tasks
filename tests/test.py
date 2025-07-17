@@ -1,5 +1,5 @@
 import pytest
-from src.main.task import Task
+from src.main.Task import Task
 from datetime import datetime, timedelta
 
 def test_task_creation():

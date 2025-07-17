@@ -1,4 +1,7 @@
+# Python-specific
 tasks.db
 .venv
-.idea
-__pycache__
+__pycache__/
+
+# IDE-specific
+.idea/
