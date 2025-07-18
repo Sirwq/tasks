@@ -1,3 +1,4 @@
+import datetime
 import sys
 from PySide6 import QtCore as qtc
 from PySide6 import QtWidgets as qtw
@@ -6,6 +7,9 @@ from PySide6 import QtGui as qtg
 from src.UI.add_task_window import Ui_d_createTask
 
 class AddTask(qtw.QDialog, Ui_d_createTask):
+
+    task_submited = qtc.Signal(str, str)
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -15,9 +19,24 @@ class AddTask(qtw.QDialog, Ui_d_createTask):
 
     @qtc.Slot()
     def process_entry(self):
+        title = self.le_title.text().strip()
+        deadline = self.dte_deadline.dateTime()
+
+        if not title:
+            self.lb_message.setText("Please, enter task title")
+            self.le_title.setFocus()
+            return
+
+        if not deadline or deadline < datetime.datetime.now():
+            self.lb_message.setText("Please, enter valid date")
+            self.le_title.setFocus()
+            return
+
         self.lb_message.setText("New task added.")
         self.le_title.clear()
         self.le_title.setFocus()
+        self.accept()
+
 
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)

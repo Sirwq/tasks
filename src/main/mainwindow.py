@@ -1,11 +1,12 @@
 import sys
 from PySide6 import QtWidgets as qtw
+from PySide6 import QtCore as qtc
 
 from src.UI.main_window import Ui_w_main_window
 
 from TaskManager import TaskManager
 from TableModel import TaskTableModel
-
+from addtask import AddTask
 
 class MainWindow(qtw.QWidget, Ui_w_main_window):
 
@@ -17,9 +18,17 @@ class MainWindow(qtw.QWidget, Ui_w_main_window):
         self.setupUi(self)
         # Installing resize mode to stretch for Header
         self.w_table.horizontalHeader().setSectionResizeMode(qtw.QHeaderView.ResizeMode.Stretch)
+        self.pb_add.clicked.connect(self.openAddTask)
         self.pb_remove.clicked.connect(self.close)
-
         self.updateTaskTable()
+
+    @qtc.Slot()
+    def openAddTask(self):
+        self.form = AddTask()
+        self.form.task_submited.connect(self.addNewTask)
+        self.form.exec()
+
+    #@qtc.
 
     def updateTaskTable(self):
         tasks = self.taskManager.get_all_tasks()
