@@ -72,3 +72,36 @@ class Task:
     def renameTask(self):
         self.title = input("Enter new title: ")
         print(f"Task renamed to {self.title}")
+
+    def remainingTimedelta(self):
+        return self.deadline - datetime.now()
+
+    def timedeltaFormat(self):
+        delta = self.remainingTimedelta().total_seconds()
+
+        if delta <= 0:
+            return "Время вышло"
+
+        days = int(delta // (24 * 3600))
+        delta %= (24 * 3600)
+        hours = int(delta // 3600)
+        delta %= 3600
+        minutes = int(delta // 60)
+        seconds = int(delta % 60)
+
+        parts = []
+
+        if days > 0:
+            parts.append(f"{days} d.")
+        if hours > 0:
+            parts.append(f"{hours} hrs.")
+        if minutes > 0:
+            parts.append(f"{minutes} min.")
+        if seconds > 0 or not parts:
+            parts.append(f"{seconds} sec.")
+        if len(parts) > 1:
+            return " ".join(parts[:-1]) + " and " + parts[-1]
+        elif parts:
+            return parts[0]
+        else:
+            return ""

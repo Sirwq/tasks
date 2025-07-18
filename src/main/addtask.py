@@ -1,0 +1,28 @@
+import sys
+from PySide6 import QtCore as qtc
+from PySide6 import QtWidgets as qtw
+from PySide6 import QtGui as qtg
+
+from src.UI.add_task_window import Ui_d_createTask
+
+class AddTask(qtw.QDialog, Ui_d_createTask):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        self.groupBox.setTitle("Add Task")
+        self.pb_close.clicked.connect(self.reject)
+        self.pb_submit.clicked.connect(self.process_entry)
+
+    @qtc.Slot()
+    def process_entry(self):
+        self.lb_message.setText("New task added.")
+        self.le_title.clear()
+        self.le_title.setFocus()
+
+if __name__ == "__main__":
+    app = qtw.QApplication(sys.argv)
+
+    form = AddTask()
+    form.open()
+
+    sys.exit(app.exec())
