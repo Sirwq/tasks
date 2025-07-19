@@ -6,7 +6,7 @@ from src.UI.main_window import Ui_w_main_window
 
 from TaskManager import TaskManager
 from TableModel import TaskTableModel
-from addtask import AddTask
+from addtaskwindow import AddTask
 
 class MainWindow(qtw.QWidget, Ui_w_main_window):
 
@@ -28,7 +28,18 @@ class MainWindow(qtw.QWidget, Ui_w_main_window):
         self.form.task_submited.connect(self.addNewTask)
         self.form.exec()
 
-    #@qtc.
+    @qtc.Slot()
+    def openEditTask(self):
+        self.form = AddTask()
+        self.form.groupBox.setTitle("Edit task")
+        self.form.task_submited.connect(self.addNewTask)
+        self.form.exec()
+
+    @qtc.Slot()
+    def addNewTask(self, title:str, deadline:str):
+        new_task = self.taskManager.create_task(title, deadline)
+        self.taskManager.add_task(new_task)
+        self.updateTaskTable()
 
     def updateTaskTable(self):
         tasks = self.taskManager.get_all_tasks()

@@ -21,6 +21,7 @@ class AddTask(qtw.QDialog, Ui_d_createTask):
     def process_entry(self):
         title = self.le_title.text().strip()
         deadline = self.dte_deadline.dateTime()
+        stringDate = deadline.toString("yyyy-MM-dd hh:mm:ss")
 
         if not title:
             self.lb_message.setText("Please, enter task title")
@@ -32,6 +33,7 @@ class AddTask(qtw.QDialog, Ui_d_createTask):
             self.le_title.setFocus()
             return
 
+        self.task_submited.emit(title, stringDate)
         self.lb_message.setText("New task added.")
         self.le_title.clear()
         self.le_title.setFocus()

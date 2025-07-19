@@ -5,17 +5,19 @@ class TaskTableModel(QtCore.QAbstractTableModel):
     def __init__(self, tasks):  # Принимаем список объектов Task
         super().__init__()
         self._data = tasks
-        self._headers = ["Статус", "Название", "Срок выполнения", "Осталось время"]  # Заголовки колонок
+        self._headers = ["", "Название", "Срок выполнения", "Осталось время"]  # Заголовки колонок
 
     def data(self, index, role):
         column = index.column()
+
+        # Display columns
         if role == QtCore.Qt.ItemDataRole.DisplayRole:
             task = self._data[index.row()]
 
 
             if column == 0:
-                return "✅ Выполнено" if task.completed else "In Progress"
-            elif column == 1:
+                return "✅" if task.completed else "❌"
+            if column == 1:
                 return task.title
             elif column == 2:
                 if isinstance(task.deadline, datetime):
@@ -23,13 +25,15 @@ class TaskTableModel(QtCore.QAbstractTableModel):
                 return str(task.deadline)
             elif column == 3:
                 return task.timedeltaFormat()
+            return None
 
+        # Aligment flags
         if role == QtCore.Qt.ItemDataRole.TextAlignmentRole:
             if column == 2:
                 return QtCore.Qt.AlignmentFlag.AlignRight
             else:
                 return QtCore.Qt.AlignmentFlag.AlignCenter
-
+        return None
 
 
     def rowCount(self, index):
