@@ -29,12 +29,8 @@ class TaskTableModel(QtCore.QAbstractTableModel):
 
         # Aligment flags
         if role == QtCore.Qt.ItemDataRole.TextAlignmentRole:
-            if column == 2:
-                return QtCore.Qt.AlignmentFlag.AlignRight
-            else:
-                return QtCore.Qt.AlignmentFlag.AlignCenter
+            return QtCore.Qt.AlignmentFlag.AlignCenter
         return None
-
 
     def rowCount(self, index):
         return len(self._data)

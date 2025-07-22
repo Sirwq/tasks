@@ -7,9 +7,9 @@ from src.UI.main_window import Ui_w_main_window
 from TaskManager import TaskManager
 from TableModel import TaskTableModel
 from addtaskwindow import AddTask
+from deletedialog import DeleteDialog
 
 class MainWindow(qtw.QWidget, Ui_w_main_window):
-
     #addTask = qtc.Signal()
     taskManager = TaskManager("../../tasks.db")
 
@@ -19,7 +19,8 @@ class MainWindow(qtw.QWidget, Ui_w_main_window):
         # Installing resize mode to stretch for Header
         self.w_table.horizontalHeader().setSectionResizeMode(qtw.QHeaderView.ResizeMode.Stretch)
         self.pb_add.clicked.connect(self.openAddTask)
-        self.pb_remove.clicked.connect(self.close)
+        self.pb_remove.clicked.connect(self.removeSelectedTask)
+        self.hasFocus()
         self.updateTaskTable()
 
     @qtc.Slot()
@@ -40,6 +41,19 @@ class MainWindow(qtw.QWidget, Ui_w_main_window):
         new_task = self.taskManager.create_task(title, deadline)
         self.taskManager.add_task(new_task)
         self.updateTaskTable()
+
+    @qtc.Slot()
+    def removeSelectedTask(self):
+        #add select later
+        delete_dialog = DeleteDialog()
+        result = delete_dialog.exec()
+
+        if result:
+            print("задача удалена")
+            #self.taskManager.delete_task() # task id
+            self.updateTaskTable()
+        else:
+            print("задача не изменена")
 
     def updateTaskTable(self):
         tasks = self.taskManager.get_all_tasks()

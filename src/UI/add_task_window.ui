@@ -71,22 +71,18 @@
       </item>
       <item row="1" column="1">
        <widget class="QDateTimeEdit" name="dte_deadline">
-        <property name="minimumDateTime">
+        <property name="wrapping">
+         <bool>false</bool>
+        </property>
+        <property name="dateTime">
          <datetime>
           <hour>0</hour>
           <minute>0</minute>
           <second>0</second>
           <year>2025</year>
-          <month>9</month>
+          <month>10</month>
           <day>14</day>
          </datetime>
-        </property>
-        <property name="minimumDate">
-         <date>
-          <year>2025</year>
-          <month>9</month>
-          <day>14</day>
-         </date>
         </property>
         <property name="displayFormat">
          <string>d/M/yyyy hh:mm</string>

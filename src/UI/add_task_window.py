@@ -64,8 +64,8 @@ class Ui_d_createTask(object):
 
         self.dte_deadline = QDateTimeEdit(self.groupBox)
         self.dte_deadline.setObjectName(u"dte_deadline")
-        self.dte_deadline.setMinimumDateTime(QDateTime(QDate(2025, 9, 14), QTime(0, 0, 0)))
-        self.dte_deadline.setMinimumDate(QDate(2025, 9, 14))
+        self.dte_deadline.setWrapping(False)
+        self.dte_deadline.setDateTime(QDateTime(QDate(2025, 10, 14), QTime(0, 0, 0)))
         self.dte_deadline.setCalendarPopup(True)
 
         self.formLayout.setWidget(1, QFormLayout.ItemRole.FieldRole, self.dte_deadline)

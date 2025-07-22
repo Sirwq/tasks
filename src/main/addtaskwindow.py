@@ -2,7 +2,6 @@ import datetime
 import sys
 from PySide6 import QtCore as qtc
 from PySide6 import QtWidgets as qtw
-from PySide6 import QtGui as qtg
 
 from src.UI.add_task_window import Ui_d_createTask
 
@@ -14,6 +13,7 @@ class AddTask(qtw.QDialog, Ui_d_createTask):
         super().__init__()
         self.setupUi(self)
         self.groupBox.setTitle("Add Task")
+        self.dte_deadline.clear()
         self.pb_close.clicked.connect(self.reject)
         self.pb_submit.clicked.connect(self.process_entry)
 
