@@ -92,15 +92,15 @@ class Task:
         parts = []
 
         if days > 0:
-            parts.append(f"{days} d.")
+            parts.append(f"{days}д")
         if hours > 0:
-            parts.append(f"{hours} hrs.")
+            parts.append(f"{hours}ч")
         if minutes > 0:
-            parts.append(f"{minutes} min.")
+            parts.append(f"{minutes}м")
         if seconds > 0 or not parts:
-            parts.append(f"{seconds} sec.")
+            parts.append(f"{seconds}с")
         if len(parts) > 1:
-            return " ".join(parts[:-1]) + " and " + parts[-1]
+            return " ".join(parts[:-1])
         elif parts:
             return parts[0]
         else:

@@ -8,15 +8,16 @@ class TaskTableModel(QtCore.QAbstractTableModel):
         self._headers = ["", "Название", "Срок выполнения", "Осталось время"]  # Заголовки колонок
 
     def data(self, index, role):
+        task = self._data[index.row()]
         column = index.column()
+
+        if role == QtCore.Qt.ItemDataRole.CheckStateRole and column == 0:
+            return QtCore.Qt.CheckState.Checked if task.completed else QtCore.Qt.CheckState.Unchecked
 
         # Display columns
         if role == QtCore.Qt.ItemDataRole.DisplayRole:
-            task = self._data[index.row()]
-
-
             if column == 0:
-                return "✅" if task.completed else "❌"
+                return ""
             if column == 1:
                 return task.title
             elif column == 2:
@@ -29,6 +30,8 @@ class TaskTableModel(QtCore.QAbstractTableModel):
 
         # Aligment flags
         if role == QtCore.Qt.ItemDataRole.TextAlignmentRole:
+            if column == 3:
+                return QtCore.Qt.AlignmentFlag.AlignRight
             return QtCore.Qt.AlignmentFlag.AlignCenter
         return None
 
@@ -43,3 +46,10 @@ class TaskTableModel(QtCore.QAbstractTableModel):
         if role == QtCore.Qt.ItemDataRole.DisplayRole and orientation == QtCore.Qt.Orientation.Horizontal:
             return self._headers[section]
         return None
+
+    def flags(self, index, /):
+        defaultFlags = super().flags(index)
+
+        if index.column() == 0:
+            return defaultFlags | QtCore.Qt.ItemFlag.ItemIsUserCheckable
+        return defaultFlags

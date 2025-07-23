@@ -17,7 +17,8 @@ class MainWindow(qtw.QWidget, Ui_w_main_window):
         super().__init__()
         self.setupUi(self)
         # Installing resize mode to stretch for Header
-        self.w_table.horizontalHeader().setSectionResizeMode(qtw.QHeaderView.ResizeMode.Stretch)
+        self.w_table.horizontalHeader().setSectionResizeMode(qtw.QHeaderView.ResizeMode.ResizeToContents)
+        self.w_table.horizontalHeader().setStretchLastSection(True)
         self.pb_add.clicked.connect(self.openAddTask)
         self.pb_remove.clicked.connect(self.removeSelectedTask)
         self.hasFocus()
